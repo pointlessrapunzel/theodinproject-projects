@@ -1,5 +1,6 @@
 const screen = document.querySelector('.screen')
 const resetBtn = document.querySelector('#btn-reset')
+const randomBtn = document.querySelector('#btn-random')
 const colourPicker = document.querySelector('[type="color"]')
 const gridSizeInput = document.querySelector('#gridSize')
 const controlsForm = document.querySelector('.controls')
@@ -9,7 +10,7 @@ const MIN_GRID_SIZE = 5
 const EMPTY_CELL_COLOUR = '#ddd'
 const etchingModes = {
   solid: 'solid',
-  rainbow: 'rainbow',
+  random: 'random',
 }
 let etchingMode = etchingModes.solid
 let currentGridSize = gridSizeInput.value
@@ -39,19 +40,33 @@ function renderMatrix(matrix) {
 }
 
 screen.addEventListener('mouseover', etchHover)
+screen.addEventListener(
+  'blur',
+  () => {
+    screen.removeEventListener('mouseover', etchHover)
+  },
+  true
+)
 resetBtn.addEventListener('click', resetScreen)
 colourPicker.value = currentDrawColour
-colourPicker.addEventListener('change', changeCurrentDrawColour)
+colourPicker.addEventListener('click', () => (etchingMode = etchingModes.solid))
+colourPicker.addEventListener('input', handleColourPicker)
 gridSizeInput.addEventListener('change', changeCurrentGridSize)
 controlsForm.addEventListener('submit', (e) => {
   e.preventDefault()
   console.log(e)
 })
+randomBtn.addEventListener('click', toggleRandomMode)
 
 function etchHover(e) {
   e.stopPropagation()
   if (e.target.classList[0] !== 'cell') return
   setCellColour(e.target, currentDrawColour)
+
+  if (etchingMode === etchingModes.random) {
+    currentDrawColour = getRandomColour()
+    colourPicker.value = currentDrawColour
+  }
 }
 
 function resetScreen() {
@@ -68,8 +83,35 @@ function resetScreen() {
   })
 }
 
-function changeCurrentDrawColour(e) {
-  currentDrawColour = e.target.value
+function setCurrentColour(colour) {
+  currentDrawColour = colour
+}
+
+function handleColourPicker(e) {
+  setCurrentColour(e.target.value)
+  etchingMode = etchingModes.solid
+}
+
+function getRandomColour() {
+  return '#' + [...Array(6)].map(getRandomHex).join('')
+}
+
+function getRandomHex() {
+  let result = ''
+  do {
+    result = Math.floor(Math.random() * 17).toString(16)
+  } while (result === '10')
+
+  return result
+}
+
+function toggleRandomMode(e) {
+  etchingMode =
+    etchingMode === etchingModes.random
+      ? etchingModes.solid
+      : etchingModes.random
+
+  if (etchingMode !== etchingModes.random) setCurrentColour(colourPicker.value)
 }
 
 function setCellColour(cell, colour) {
