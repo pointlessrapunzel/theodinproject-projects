@@ -18,10 +18,20 @@
         <div class="screen">
           <!-- generated grid -->
         </div>
-        <div class="controls">
+        <form class="controls">
+          <label for="currentDrawColour">Colour:</label>
           <input type="color" name="currentDrawColour" id="currentDrawColour" />
-          <button id="btn-reset">reset</button>
-        </div>
+          <label for="gridSize">Grid size:</label>
+          <input
+            type="number"
+            name="gridSize"
+            id="gridSize"
+            min="5"
+            max="150"
+            value="20"
+          />
+          <button id="btn-reset">Reset</button>
+        </form>
       </div>
     </main>
 

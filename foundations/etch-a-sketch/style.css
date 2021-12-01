@@ -52,6 +52,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1em;
 }
 
 .screen {
@@ -75,5 +76,5 @@ main {
   --cell-colour: hotpink;
   flex: 1 1 auto;
   background-color: var(--cell-colour);
-  /* border: 0.5px solid var(--screen-bg-clr); */
+  /* border: 0.5px solid black; */
 }

@@ -1,17 +1,30 @@
 const screen = document.querySelector('.screen')
 const resetBtn = document.querySelector('#btn-reset')
 const colourPicker = document.querySelector('[type="color"]')
+const gridSizeInput = document.querySelector('#gridSize')
+const controlsForm = document.querySelector('.controls')
 
 const MAX_GRID_SIZE = 150
+const MIN_GRID_SIZE = 5
 const EMPTY_CELL_COLOUR = '#ddd'
-let gridSize = 15
+const etchingModes = {
+  solid: 'solid',
+  rainbow: 'rainbow',
+}
+let etchingMode = etchingModes.solid
+let currentGridSize = gridSizeInput.value
 let currentDrawColour = '#222'
 
-const matrix = Array.from({ length: gridSize }, () =>
-  Array.from({ length: gridSize }).fill(EMPTY_CELL_COLOUR)
-)
+let matrix = createMatrix(currentGridSize)
+
+function createMatrix(gridSize) {
+  return Array.from({ length: gridSize }, () =>
+    Array.from({ length: gridSize }).fill(EMPTY_CELL_COLOUR)
+  )
+}
 
 function renderMatrix(matrix) {
+  screen.innerHTML = ''
   matrix.forEach((row, rowIdx) => {
     const rowDiv = document.createElement('div')
     row.forEach((cellClr, cellIdx) => {
@@ -29,6 +42,11 @@ screen.addEventListener('mouseover', etchHover)
 resetBtn.addEventListener('click', resetScreen)
 colourPicker.value = currentDrawColour
 colourPicker.addEventListener('change', changeCurrentDrawColour)
+gridSizeInput.addEventListener('change', changeCurrentGridSize)
+controlsForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+  console.log(e)
+})
 
 function etchHover(e) {
   e.stopPropagation()
@@ -37,6 +55,12 @@ function etchHover(e) {
 }
 
 function resetScreen() {
+  if (currentGridSize !== matrix.length) {
+    matrix = createMatrix(currentGridSize)
+    renderMatrix(matrix)
+    return
+  }
+
   matrix.forEach((row) => {
     row.forEach((cell) => {
       setCellColour(cell, EMPTY_CELL_COLOUR)
@@ -50,6 +74,17 @@ function changeCurrentDrawColour(e) {
 
 function setCellColour(cell, colour) {
   cell.style.setProperty('--cell-colour', colour)
+}
+
+function changeCurrentGridSize(e) {
+  currentGridSize =
+    e.target.value < MIN_GRID_SIZE
+      ? 5
+      : e.target.value > MAX_GRID_SIZE
+      ? 150
+      : e.target.value
+
+  e.target.value = currentGridSize
 }
 
 renderMatrix(matrix)
