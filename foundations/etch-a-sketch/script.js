@@ -1,20 +1,21 @@
 const screen = document.querySelector('.screen')
 const resetBtn = document.querySelector('#btn-reset')
 const randomBtn = document.querySelector('#btn-random')
+const eraserBtn = document.querySelector('#btn-eraser')
 const colourPicker = document.querySelector('[type="color"]')
 const gridSizeInput = document.querySelector('#gridSize')
 const controlsForm = document.querySelector('.controls')
 
 const MAX_GRID_SIZE = 150
 const MIN_GRID_SIZE = 5
-const EMPTY_CELL_COLOUR = '#ddd'
+const EMPTY_CELL_COLOUR = '#DDDDDD'
 const etchingModes = {
   solid: 'solid',
   random: 'random',
 }
 let etchingMode = etchingModes.solid
 let currentGridSize = gridSizeInput.value
-let currentDrawColour = '#222'
+let currentDrawColour = '#222222'
 
 let matrix = createMatrix(currentGridSize)
 
@@ -56,6 +57,7 @@ controlsForm.addEventListener('submit', (e) => {
   e.preventDefault()
   console.log(e)
 })
+eraserBtn.addEventListener('click', toggleEraser)
 randomBtn.addEventListener('click', toggleRandomMode)
 
 function etchHover(e) {
@@ -81,6 +83,12 @@ function resetScreen() {
       setCellColour(cell, EMPTY_CELL_COLOUR)
     })
   })
+}
+
+function toggleEraser(e) {
+  currentDrawColour = EMPTY_CELL_COLOUR
+  colourPicker.value = EMPTY_CELL_COLOUR
+  etchingMode = etchingModes.solid
 }
 
 function setCurrentColour(colour) {
