@@ -41,22 +41,12 @@ function renderMatrix(matrix) {
 }
 
 screen.addEventListener('mouseover', etchHover)
-screen.addEventListener(
-  'blur',
-  () => {
-    screen.removeEventListener('mouseover', etchHover)
-  },
-  true
-)
 resetBtn.addEventListener('click', resetScreen)
 colourPicker.value = currentDrawColour
 colourPicker.addEventListener('click', () => (etchingMode = etchingModes.solid))
 colourPicker.addEventListener('input', handleColourPicker)
 gridSizeInput.addEventListener('change', changeCurrentGridSize)
-controlsForm.addEventListener('submit', (e) => {
-  e.preventDefault()
-  console.log(e)
-})
+controlsForm.addEventListener('submit', (e) => e.preventDefault())
 eraserBtn.addEventListener('click', toggleEraser)
 randomBtn.addEventListener('click', toggleRandomMode)
 
@@ -132,11 +122,9 @@ function changeCurrentGridSize(e) {
       ? 5
       : e.target.value > MAX_GRID_SIZE
       ? 150
-      : e.target.value
+      : Number(e.target.value)
 
   e.target.value = currentGridSize
 }
 
 renderMatrix(matrix)
-
-console.log(matrix)

@@ -72,7 +72,6 @@ main {
 }
 
 .cell {
-  /* Make CSS Variables with the colour */
   --cell-colour: hotpink;
   flex: 1 1 auto;
   background-color: var(--cell-colour);
