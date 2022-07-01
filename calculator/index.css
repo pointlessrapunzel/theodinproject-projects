@@ -1,0 +1,73 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --clr-orange: #ed6a5a;
+  --clr-mint: #9df7e5;
+  --clr-black: #303633;
+  --clr-violet: hsl(244, 50%, 65%);
+  --clr-dark-violet: hsl(244, 50%, 60%);
+  --box-shadow: 2px 2px var(--clr-black);
+}
+
+body {
+  background: var(--clr-orange);
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.calculator {
+  border: 1px solid black;
+  font-size: 2rem;
+  color: var(--clr-black);
+  background-color: var(--clr-dark-violet);
+  box-shadow: var(--box-shadow);
+}
+
+.calculator > *::selection {
+  background-color: var(--clr-orange);
+  color: snow;
+}
+
+.display {
+  text-align: right;
+  padding: 1ch;
+  min-height: 50px;
+  background-color: var(--clr-mint);
+  box-shadow: 0 2px var(--clr-black);
+}
+
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 0.25rem;
+  padding: 0.5rem;
+}
+
+.numpad button {
+  cursor: pointer;
+  font-size: inherit;
+  padding: 1ch;
+  color: inherit;
+  background-color: var(--clr-violet);
+  border: none;
+  /* border: 1px solid var(--clr-black); */
+  border-radius: 0.5rem;
+  box-shadow: var(--box-shadow);
+}
+
+.numpad button:active {
+  /* background-color: var(--clr-dark-violet); */
+  box-shadow: none;
+  transform: translate3d(2px, 2px, 0);
+}
