@@ -20,24 +20,37 @@ function operate(operator, a, b) {
   }
 }
 
-function testOperate() {
-  if (operate('+', 1, 1) != 2) return false
-  console.log('+ works correctly')
+const calculator = document.querySelector('#calculator')
 
-  if (operate('-', 1, 1) != 0) return false
-  console.log('- works correctly')
+calculator.addEventListener('click', (e) => {
+  if (e.target.tagName == 'BUTTON') registerKeypress(e.target.dataset.key)
+})
 
-  if (operate('*', 2, 2) != 4) return false
-  console.log('* works correctly')
+window.addEventListener('keydown', (e) => {
+  // e.key[0] to not pick up f-keys
+  if (e.key[0].match(/(\d|\+|\-|\*|\/|\=|\.)/)) {
+    registerKeypress(e.key)
 
-  if (operate('/', 2, 2) != 1) return false
-  console.log('/ works correctly')
+    // add pressed animation to the corresponding button
+    const btnEl = calculator.querySelector(`[data-key="${e.key}"]`)
+    btnEl.classList.toggle('pressed')
+    setTimeout(() => {
+      btnEl.classList.toggle('pressed')
+    }, 50)
+  }
 
-  return true
+  // prevent browser from starting quick search
+  if (e.key.match('/')) e.preventDefault()
+})
+
+function registerKeypress(key) {
+  console.log('key:', key)
 }
 
-function runTests() {
-  console.log('operate:', testOperate())
+function registerNumberKeypress(number) {
+  console.log('You entered:', number)
 }
 
-runTests()
+function registerOperatorKeypress(operator) {
+  console.log('operator:', operator)
+}
