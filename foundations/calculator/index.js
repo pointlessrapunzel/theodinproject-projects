@@ -31,13 +31,19 @@ calculator.addEventListener('click', (e) => {
 })
 
 window.addEventListener('keydown', (e) => {
-  // Enter equivalent to = for numpad users
   let key = e.key
+
+  // Enter equivalent to = for numpad users
   if (key == 'Enter') key = '='
 
   // e.key[0] to not pick up f-keys
   // regex: any digits, +, -, *, /, = and . signs
-  if (!key[0].match(/(\d|\+|\-|\*|\/|\=|\.)/)) return
+  if (
+    key != 'Backspace' &&
+    key != 'c' &&
+    !key[0].match(/(\d|\+|\-|\*|\/|\=|\.)/)
+  )
+    return
 
   registerKeypress(key)
 
@@ -70,4 +76,15 @@ function registerNumberKeypress(number) {
 
 function registerOperatorKeypress(operator) {
   console.log('operator:', operator)
+  if (operator == 'c') return (displayNumber.textContent = '0')
+  if (operator == 'Backspace') {
+    // remove last character
+    displayNumber.textContent = displayNumber.textContent.slice(
+      0,
+      displayNumber.textContent.length - 1
+    )
+    if (displayNumber.textContent.length == 0) displayNumber.textContent = 0
+
+    return
+  }
 }

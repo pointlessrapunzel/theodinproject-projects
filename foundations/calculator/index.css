@@ -74,6 +74,14 @@ body {
   box-shadow: var(--box-shadow);
 }
 
+#numpad button[data-key='c'] {
+  grid-column: span 2;
+}
+
+#numpad button[data-key='Backspace'] {
+  grid-column: span 2;
+}
+
 #numpad button:focus-visible {
   outline: 2px solid #ed6a5a;
 }
