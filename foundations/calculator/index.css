@@ -66,6 +66,10 @@ body {
   box-shadow: var(--box-shadow);
 }
 
+.numpad button:focus-visible {
+  outline: 2px solid #ed6a5a;
+}
+
 .numpad button:active,
 .numpad button.pressed {
   box-shadow: none;
