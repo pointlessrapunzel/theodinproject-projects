@@ -21,6 +21,10 @@ function operate(operator, a, b) {
 }
 
 const calculator = document.querySelector('#calculator')
+const displayNumber = calculator.querySelector('#current-num')
+const displayOperation = calculator.querySelector('#display-operation')
+displayNumber.textContent = 0
+displayOperation.textContent = ''
 
 calculator.addEventListener('click', (e) => {
   if (e.target.tagName == 'BUTTON') registerKeypress(e.target.dataset.key)
@@ -49,11 +53,19 @@ window.addEventListener('keydown', (e) => {
 })
 
 function registerKeypress(key) {
-  console.log('key:', key)
+  if (key.match(/\d/)) registerNumberKeypress(key)
+  else registerOperatorKeypress(key)
 }
 
 function registerNumberKeypress(number) {
-  console.log('You entered:', number)
+  // disallow ultra large numbers
+  if (displayNumber.textContent.length > String(Number.MAX_SAFE_INTEGER).length)
+    return
+
+  // initial zero shouldn't lead
+  if (displayNumber.textContent == '0') displayNumber.textContent = ''
+
+  displayNumber.textContent += String(number)
 }
 
 function registerOperatorKeypress(operator) {

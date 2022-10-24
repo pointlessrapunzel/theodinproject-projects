@@ -9,7 +9,8 @@
 :root {
   --clr-orange: #ed6a5a;
   --clr-mint: #9df7e5;
-  --clr-black: #303633;
+  --clr-black: hsl(150, 6%, 20%);
+  --clr-light-black: hsl(150, 6%, 40%);
   --clr-violet: hsl(244, 50%, 65%);
   --clr-dark-violet: hsl(244, 50%, 60%);
   --box-shadow: 2px 2px var(--clr-black);
@@ -40,12 +41,18 @@ body {
 
 #display {
   display: flex;
+  flex-direction: column;
   align-items: end;
   justify-content: end;
   padding: 1ch;
   min-height: 4em;
   background-color: var(--clr-mint);
   box-shadow: 0 2px var(--clr-black);
+}
+
+#display-operation {
+  font-size: 0.65em;
+  color: var(--clr-light-black);
 }
 
 #numpad {
