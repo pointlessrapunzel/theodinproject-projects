@@ -27,20 +27,25 @@ calculator.addEventListener('click', (e) => {
 })
 
 window.addEventListener('keydown', (e) => {
-  // e.key[0] to not pick up f-keys
-  if (e.key[0].match(/(\d|\+|\-|\*|\/|\=|\.)/)) {
-    registerKeypress(e.key)
+  // Enter equivalent to = for numpad users
+  let key = e.key
+  if (key == 'Enter') key = '='
 
-    // add pressed animation to the corresponding button
-    const btnEl = calculator.querySelector(`[data-key="${e.key}"]`)
+  // e.key[0] to not pick up f-keys
+  // regex: any digits, +, -, *, /, = and . signs
+  if (!key[0].match(/(\d|\+|\-|\*|\/|\=|\.)/)) return
+
+  registerKeypress(key)
+
+  // add pressed animation to the corresponding button
+  const btnEl = calculator.querySelector(`[data-key="${key}"]`)
+  btnEl.classList.toggle('pressed')
+  setTimeout(() => {
     btnEl.classList.toggle('pressed')
-    setTimeout(() => {
-      btnEl.classList.toggle('pressed')
-    }, 50)
-  }
+  }, 50)
 
   // prevent browser from starting quick search
-  if (e.key.match('/')) e.preventDefault()
+  if (key.match('/')) e.preventDefault()
 })
 
 function registerKeypress(key) {
