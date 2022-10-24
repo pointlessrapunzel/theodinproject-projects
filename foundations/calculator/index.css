@@ -26,10 +26,11 @@ body {
 }
 
 #calculator {
-  font-size: 2rem;
+  font-size: clamp(1rem, 10vw, 2.5rem);
   color: var(--clr-black);
   background-color: var(--clr-dark-violet);
   box-shadow: var(--box-shadow);
+  width: min(90%, 20ch);
 }
 
 #calculator > *::selection {
@@ -37,7 +38,7 @@ body {
   color: snow;
 }
 
-.display {
+#display {
   display: flex;
   align-items: end;
   justify-content: end;
@@ -47,7 +48,7 @@ body {
   box-shadow: 0 2px var(--clr-black);
 }
 
-.numpad {
+#numpad {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
@@ -55,7 +56,7 @@ body {
   padding: 0.5rem;
 }
 
-.numpad button {
+#numpad button {
   cursor: pointer;
   font-size: inherit;
   padding: 1ch;
@@ -66,12 +67,12 @@ body {
   box-shadow: var(--box-shadow);
 }
 
-.numpad button:focus-visible {
+#numpad button:focus-visible {
   outline: 2px solid #ed6a5a;
 }
 
-.numpad button:active,
-.numpad button.pressed {
+#numpad button:active,
+#numpad button.pressed {
   box-shadow: none;
   transform: translate3d(2px, 2px, 0);
 }
