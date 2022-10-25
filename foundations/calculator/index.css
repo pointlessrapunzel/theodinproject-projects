@@ -13,6 +13,7 @@
   --clr-light-black: hsl(150, 6%, 40%);
   --clr-violet: hsl(244, 50%, 65%);
   --clr-dark-violet: hsl(244, 50%, 60%);
+  --clr-lavender: hsl(280, 45%, 70%);
   --box-shadow: 2px 2px var(--clr-black);
 }
 
@@ -27,7 +28,7 @@ body {
 }
 
 #calculator {
-  font-size: clamp(1rem, 10vw, 2.5rem);
+  font-size: clamp(1rem, 8vw, 2.5rem);
   color: var(--clr-black);
   background-color: var(--clr-dark-violet);
   box-shadow: var(--box-shadow);
@@ -48,6 +49,12 @@ body {
   min-height: 4em;
   background-color: var(--clr-mint);
   box-shadow: 0 2px var(--clr-black);
+}
+
+#display #current-num {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 #display-operation {
@@ -74,12 +81,19 @@ body {
   box-shadow: var(--box-shadow);
 }
 
-#numpad button[data-key='c'] {
+#numpad button[data-key='0'] {
   grid-column: span 2;
 }
 
-#numpad button[data-key='Backspace'] {
-  grid-column: span 2;
+#numpad button[data-key='='] {
+  grid-row: span 2;
+}
+#numpad button[data-key='='],
+#numpad button[data-key='+'],
+#numpad button[data-key='-'],
+#numpad button[data-key='*'],
+#numpad button[data-key='/'] {
+  background-color: var(--clr-lavender);
 }
 
 #numpad button:focus-visible {

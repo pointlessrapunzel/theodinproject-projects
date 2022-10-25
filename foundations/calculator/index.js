@@ -33,6 +33,11 @@ let lastChosenOperator = null
 let prevKeypress = null
 let isError = false
 
+calculator.addEventListener('submit', (e) => {
+  e.preventDefault()
+  registerEquals()
+})
+
 calculator.addEventListener('click', (e) => {
   if (e.target.tagName == 'BUTTON') registerKeypress(e.target.dataset.key)
 })
